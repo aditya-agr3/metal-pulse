@@ -8,35 +8,58 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Metal-themed luxurious color palette */
+    --background: 20 15% 8%;
+    --foreground: 45 40% 90%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 20 15% 12%;
+    --card-foreground: 45 40% 90%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 20 15% 12%;
+    --popover-foreground: 45 40% 90%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 45 95% 60%;
+    --primary-foreground: 20 15% 8%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 240 5% 20%;
+    --secondary-foreground: 45 40% 90%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 240 5% 18%;
+    --muted-foreground: 240 5% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 0 0% 85%;
+    --accent-foreground: 20 15% 8%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 240 5% 20%;
+    --input: 240 5% 20%;
+    --ring: 45 95% 60%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
+
+    /* Metal-specific colors */
+    --gold: 45 95% 60%;
+    --gold-foreground: 20 15% 8%;
+    --silver: 0 0% 85%;
+    --silver-foreground: 0 0% 15%;
+    --platinum: 210 15% 75%;
+    --platinum-foreground: 210 15% 15%;
+
+    /* Gradients */
+    --gradient-gold: linear-gradient(135deg, hsl(45 95% 60%), hsl(35 85% 50%));
+    --gradient-silver: linear-gradient(135deg, hsl(0 0% 85%), hsl(0 0% 70%));
+    --gradient-platinum: linear-gradient(135deg, hsl(210 15% 75%), hsl(210 15% 60%));
+    --gradient-background: linear-gradient(135deg, hsl(20 15% 8%), hsl(20 15% 12%));
+
+    /* Shadows */
+    --shadow-gold: 0 20px 40px -10px hsl(45 95% 60% / 0.3);
+    --shadow-silver: 0 20px 40px -10px hsl(0 0% 85% / 0.2);
+    --shadow-platinum: 0 20px 40px -10px hsl(210 15% 75% / 0.2);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
 
