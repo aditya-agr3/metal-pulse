@@ -6,11 +6,20 @@ const corsHeaders = {
 }
 
 interface MetalsApiResponse {
-  success: boolean;
-  data: {
-    [key: string]: number;
+  status: string;
+  currency: string;
+  unit: string;
+  metals: {
+    gold?: number;
+    silver?: number;
+    platinum?: number;
+    [key: string]: number | undefined;
   };
-  timestamp: number;
+  currencies?: Record<string, number>;
+  timestamps?: {
+    metal?: string;
+    currency?: string;
+  };
 }
 
 interface MetalPrice {
@@ -51,34 +60,33 @@ Deno.serve(async (req) => {
       throw new Error(`API request failed: ${response.status}`);
     }
     
-    const data: MetalsApiResponse = await response.json();
-    console.log('API response received:', data);
-    
-    if (!data.success) {
-      throw new Error('API returned unsuccessful response');
-    }
+const data: any = await response.json();
+console.log('API response received:', data);
 
-    // Map the API response to our expected format
-    const metalPrices: MetalPrices = {
-      gold: {
-        current: data.data.XAU || 0,
-        previousClose: data.data.XAU ? data.data.XAU * 0.998 : 0, // Simulate previous close
-        previousOpen: data.data.XAU ? data.data.XAU * 0.999 : 0,  // Simulate previous open
-        lastUpdated: new Date(data.timestamp * 1000).toISOString()
-      },
-      silver: {
-        current: data.data.XAG || 0,
-        previousClose: data.data.XAG ? data.data.XAG * 0.998 : 0,
-        previousOpen: data.data.XAG ? data.data.XAG * 0.999 : 0,
-        lastUpdated: new Date(data.timestamp * 1000).toISOString()
-      },
-      platinum: {
-        current: data.data.XPT || 0,
-        previousClose: data.data.XPT ? data.data.XPT * 0.998 : 0,
-        previousOpen: data.data.XPT ? data.data.XPT * 0.999 : 0,
-        lastUpdated: new Date(data.timestamp * 1000).toISOString()
-      }
-    };
+if (data.status !== 'success') {
+  throw new Error('API returned unsuccessful response');
+}
+
+const currentTimeIso: string = (data.timestamps?.metal as string) || new Date().toISOString();
+
+const toPrice = (value?: number): MetalPrice => {
+  const current = typeof value === 'number' ? value : 0;
+  const previousClose = current > 0 ? +(current * 0.998).toFixed(2) : 0;
+  const previousOpen = current > 0 ? +(current * 0.999).toFixed(2) : 0;
+  return {
+    current: +(current.toFixed(3)),
+    previousClose,
+    previousOpen,
+    lastUpdated: currentTimeIso,
+  };
+};
+
+// Map the API response to our expected format
+const metalPrices: MetalPrices = {
+  gold: toPrice(data.metals?.gold),
+  silver: toPrice(data.metals?.silver),
+  platinum: toPrice(data.metals?.platinum),
+};
 
     console.log('Processed metal prices:', metalPrices);
 
