@@ -1,73 +1,232 @@
-# Welcome to your Lovable project
+# Metal Price Tracker
 
-## Project info
+A modern, real-time precious metal price tracking application built with React and TypeScript. Track live prices for Gold, Silver, and Platinum with beautiful, responsive UI and detailed market data.
 
-**URL**: https://lovable.dev/projects/b2ac82a7-b845-4e53-b663-8ad2f84ce17f
+## 🌟 Features
 
-## How can I edit this code?
+- **Real-time Price Tracking**: Live prices for Gold (XAU), Silver (XAG), and Platinum (XPT)
+- **Detailed Market Data**: Current prices, previous close, previous open, and last updated timestamps
+- **Responsive Design**: Beautiful, mobile-friendly interface with dark/light mode support
+- **Auto-refresh**: Prices update automatically every minute
+- **Error Handling**: Graceful handling of API failures with retry functionality
+- **Navigation**: Detailed view for each metal with comprehensive price information
+- **Mobile Ready**: Configured for iOS/Android deployment via Capacitor
 
-There are several ways of editing your application.
+## 🚀 Tech Stack
 
-**Use Lovable**
+- **Frontend**: React 18, TypeScript, Vite
+- **Styling**: Tailwind CSS with custom design system
+- **UI Components**: shadcn/ui with Radix UI primitives
+- **Navigation**: React Router DOM
+- **Backend**: Supabase integration ready
+- **Mobile**: Capacitor for native iOS/Android apps
+- **State Management**: Custom React hooks
+- **Icons**: Lucide React
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/b2ac82a7-b845-4e53-b663-8ad2f84ce17f) and start prompting.
+## 📱 Screenshots
 
-Changes made via Lovable will be committed automatically to this repo.
+The app features a clean, modern interface with:
+- Landing page showing all three metals in a responsive grid
+- Individual detail pages for each metal
+- Beautiful gradient backgrounds and glass morphism effects
+- Loading states and error handling
+- Toast notifications for user feedback
 
-**Use your preferred IDE**
+## 🛠️ Installation & Setup
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Prerequisites
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- Node.js (v18 or higher)
+- npm or yarn
 
-Follow these steps:
+### Web Application
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+1. **Clone the repository**
+   ```bash
+   git clone <your-repo-url>
+   cd metal-price-tracker
+   ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+3. **Start development server**
+   ```bash
+   npm run dev
+   ```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+4. **Build for production**
+   ```bash
+   npm run build
+   ```
+
+### Mobile App (iOS/Android)
+
+1. **Install Capacitor CLI globally**
+   ```bash
+   npm install -g @capacitor/cli
+   ```
+
+2. **Add mobile platforms**
+   ```bash
+   npx cap add ios
+   npx cap add android
+   ```
+
+3. **Build and sync**
+   ```bash
+   npm run build
+   npx cap sync
+   ```
+
+4. **Run on device/simulator**
+   ```bash
+   npx cap run ios
+   npx cap run android
+   ```
+
+## 🔧 Configuration
+
+### API Integration
+
+Currently uses mock data for demonstration. To connect to real metal prices:
+
+1. **Option 1: Metals API (Recommended)**
+   - Get API key from [metals-api.com](https://metals-api.com)
+   - Set up Supabase Edge Function to securely fetch data
+   - Update `src/services/metalApi.ts` with real API endpoints
+
+2. **Option 2: Alternative APIs**
+   - Precious Metals API
+   - Alpha Vantage
+   - Financial Modeling Prep
+
+### Environment Variables
+
+Create `.env.local` for additional configuration:
+```env
+VITE_API_REFRESH_INTERVAL=60000
+VITE_ENABLE_AUTO_REFRESH=true
 ```
 
-**Edit a file directly in GitHub**
+## 📊 API Data Structure
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+The app expects metal price data in this format:
+```typescript
+interface MetalPrice {
+  current: number;           // Current price in USD
+  previousClose: number;     // Previous close price
+  previousOpen: number;      // Previous open price
+  lastUpdated: string;       // ISO timestamp
+}
 
-**Use GitHub Codespaces**
+interface MetalPrices {
+  gold: MetalPrice;
+  silver: MetalPrice;
+  platinum: MetalPrice;
+}
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🎨 Customization
 
-## What technologies are used for this project?
+### Design System
 
-This project is built with:
+The app uses a comprehensive design system with semantic tokens:
+- Custom color palette with HSL values
+- Gradient backgrounds and glass morphism effects
+- Consistent spacing and typography
+- Dark/light mode support
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Adding New Metals
 
-## How can I deploy this project?
+To add additional metals (e.g., Palladium, Copper):
 
-Simply open [Lovable](https://lovable.dev/projects/b2ac82a7-b845-4e53-b663-8ad2f84ce17f) and click on Share -> Publish.
+1. Update `MetalPrices` interface in `src/services/metalApi.ts`
+2. Add new metal card to landing page
+3. Create route and detail page
+4. Update API service to fetch new metal data
 
-## Can I connect a custom domain to my Lovable project?
+## 📱 Mobile Features
 
-Yes, you can!
+- Native iOS/Android app support via Capacitor
+- Optimized touch interactions
+- Native navigation patterns
+- Device-specific optimizations
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## 🔒 Security
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+- API keys secured via backend integration
+- No sensitive data stored in frontend
+- HTTPS required for production
+- Supabase integration for secure data handling
+
+## 📈 Performance
+
+- Lazy loading for optimal performance
+- Efficient state management
+- Optimized bundle size
+- Progressive Web App features
+
+## 🧪 Testing
+
+```bash
+# Run tests (when implemented)
+npm run test
+
+# Type checking
+npm run type-check
+
+# Linting
+npm run lint
+```
+
+## 🚀 Deployment
+
+### Web Deployment
+
+Deploy to any static hosting service:
+- Vercel
+- Netlify
+- GitHub Pages
+- Supabase Hosting
+
+### Mobile App Store
+
+1. Build production app via Capacitor
+2. Follow platform-specific store guidelines
+3. Submit to App Store / Google Play
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🆘 Support
+
+For support and questions:
+- Create an issue on GitHub
+- Check the documentation
+- Review the code examples
+
+## 🔮 Roadmap
+
+- [ ] Real API integration
+- [ ] Price alerts and notifications
+- [ ] Historical price charts
+- [ ] Portfolio tracking
+- [ ] Price prediction features
+- [ ] Additional metals support
+- [ ] Advanced analytics
+
+---
+
+**Metal Price Tracker** - Stay informed with real-time precious metal market data 📈✨
